@@ -1,0 +1,6 @@
+:{$PORT} {
+	proxy / {$BACKEND_ADDR} {
+		transparent
+	}
+	tls off
+}
