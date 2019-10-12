@@ -19,9 +19,10 @@ services:
       update_config:
         delay: ${UPDATE_DELAY:-1m}
       labels:
-        traefik.frontend.rule: Host:${TRAEFIK_SUBDOMAIN}.${TRAEFIK_DOMAIN}
-        traefik.backend: ${TRAEFIK_SUBDOMAIN}
-        traefik.port: '${PORT}'
+        traefik.http.routers.mulo.entrypoints: ${TRAEFIK_ENTRYPOINT:-https}
+        traefik.http.routers.mulo.tls.certresolver: ${TRAEFIK_CERTRESOLVER:-default}
+        traefik.http.routers.mulo.rule: Host(`${TRAEFIK_SUBDOMAIN:-mulo}.${TRAEFIK_DOMAIN}`)
+        traefik.http.services.mulo.loadbalancer.server.port: ${PORT}
       resources:
         limits:
           cpus: '${RESOURCES_LIMITS_CPUS:-0.1}'
