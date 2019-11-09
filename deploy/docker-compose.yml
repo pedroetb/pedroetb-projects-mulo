@@ -1,8 +1,8 @@
 version: '3.7'
 
 services:
-  caddy:
-    image: ${IMAGE_NAME:-lucaslorentz/caddy-docker-proxy}:${IMAGE_TAG:-alpine}
+  mulo:
+    image: ${IMAGE_NAME:-productionwentdown/caddy}:${IMAGE_TAG:-1.0.3}
     environment:
       PORT:
       BACKEND_ADDR:
@@ -10,7 +10,7 @@ services:
       traefik-net:
     configs:
       - source: caddyfile-config
-        target: /Caddyfile
+        target: /etc/Caddyfile
     deploy:
       mode: replicated
       replicas: ${REPLICAS:-1}
@@ -39,4 +39,4 @@ networks:
 configs:
   caddyfile-config:
     name: ${CADDYFILE_CONFIG_NAME:-mulo-caddyfile}
-    file: ./Caddyfile
+    file: ./config/Caddyfile
