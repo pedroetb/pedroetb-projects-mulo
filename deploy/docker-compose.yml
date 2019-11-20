@@ -8,6 +8,8 @@ services:
       BACKEND_ADDR:
     networks:
       traefik-net:
+    volumes:
+      - work-vol:/etc/.caddy
     configs:
       - source: caddyfile-config
         target: /etc/Caddyfile
@@ -35,6 +37,10 @@ networks:
   traefik-net:
     name: ${TRAEFIK_NET_NAME:-traefik-net}
     external: true
+
+volumes:
+  work-vol:
+    name: ${WORK_VOL_NAME:-mulo-work-vol}
 
 configs:
   caddyfile-config:
