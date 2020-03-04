@@ -21,6 +21,7 @@ services:
       update_config:
         delay: ${UPDATE_DELAY:-1m}
       labels:
+        traefik.enable: 'true'
         traefik.http.routers.mulo.entrypoints: ${TRAEFIK_ENTRYPOINT:-https}
         traefik.http.routers.mulo.tls.certresolver: ${TRAEFIK_CERTRESOLVER:-default}
         traefik.http.routers.mulo.rule: Host(`${TRAEFIK_SUBDOMAIN:-mulo}.${TRAEFIK_DOMAIN}`)
@@ -36,6 +37,7 @@ services:
 networks:
   traefik-net:
     name: ${TRAEFIK_NET_NAME:-traefik-net}
+    driver: ${TRAEFIK_NET_DRIVER:-overlay}
     external: true
 
 volumes:
